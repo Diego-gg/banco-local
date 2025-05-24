@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banco Local Moderno</title>
+  <!-- Carga de la fuente Inter desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Contenedor principal centrado -->
+  <div class="container">
+    <!-- Sección de autenticación (registro/login) -->
+    <div id="auth" class="card">
+      <h2 class="card-title">Registro / Login</h2>
+      <!-- Campo para nombre de usuario -->
+      <input id="name" class="input" placeholder="Nombre" />
+      <!-- Campo para email -->
+      <input id="email" class="input" placeholder="Email" type="email"/>
+      <!-- Campo para contraseña -->
+      <input id="password" class="input" placeholder="Contraseña" type="password"/>
+      <!-- Botones de acción para registro e ingreso -->
+      <div class="actions">
+        <button id="btnRegister" class="btn btn-primary">Registrarse</button>
+        <button id="btnLogin"    class="btn btn-secondary">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- Sección de la aplicación (visible tras login) -->
+    <div id="app" hidden>
+      <!-- Tarjeta de bienvenida y balance -->
+      <div class="card">
+        <h2 class="card-title">Bienvenido, <span id="userName"></span></h2>
+        <p class="balance">Saldo: $<span id="balance">0.00</span></p>
+      </div>
+
+      <!-- Tarjeta de consignación -->
+      <div class="card">
+        <h3 class="card-subtitle">Consignar</h3>
+        <input id="depositAmount" class="input" type="number" placeholder="Monto"/>
+        <button id="btnDeposit" class="btn btn-primary">Depositar</button>
+      </div>
+
+      <!-- Tarjeta de transferencia -->
+      <div class="card">
+        <h3 class="card-subtitle">Transferir</h3>
+        <input id="transferEmail"  class="input" type="email" placeholder="Email destino"/>
+        <input id="transferAmount" class="input" type="number" placeholder="Monto"/>
+        <button id="btnTransfer" class="btn btn-secondary">Enviar</button>
+      </div>
+
+      <!-- Tarjeta de solicitud de préstamo -->
+      <div class="card">
+        <h3 class="card-subtitle">Solicitar Préstamo</h3>
+        <input id="loanAmount" class="input" type="number" placeholder="Monto"/>
+        <button id="btnLoan" class="btn btn-primary">Solicitar</button>
+      </div>
+
+      <!-- Tarjeta de historial de movimientos -->
+      <div class="card">
+        <h3 class="card-subtitle">Historial de Movimientos</h3>
+        <ul id="history"></ul>
+      </div>
+
+      <!-- Tarjeta de lista de préstamos solicitados -->
+      <div class="card">
+        <h3 class="card-subtitle">Mis Préstamos</h3>
+        <ul id="loans"></ul>
+      </div>
+
+      <!-- Botón de cierre de sesión -->
+      <button id="btnLogout" class="btn btn-danger">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <!-- Enlace al script JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
