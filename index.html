@@ -4,78 +4,274 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Banco Local Moderno</title>
-  <!-- Carga de la fuente Inter desde Google Fonts -->
+  <!-- Fuente Inter para estilo moderno -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Enlace al archivo CSS -->
+  <!-- Estilos principales -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Contenedor principal centrado -->
   <div class="container">
-    <!-- Sección de autenticación (registro/login) -->
-    <div id="auth" class="card">
-      <h2 class="card-title">Registro / Login</h2>
-      <!-- Campo para nombre de usuario -->
-      <input id="name" class="input" placeholder="Nombre" />
-      <!-- Campo para email -->
-      <input id="email" class="input" placeholder="Email" type="email"/>
-      <!-- Campo para contraseña -->
-      <input id="password" class="input" placeholder="Contraseña" type="password"/>
-      <!-- Botones de acción para registro e ingreso -->
-      <div class="actions">
-        <button id="btnRegister" class="btn btn-primary">Registrarse</button>
-        <button id="btnLogin"    class="btn btn-secondary">Ingresar</button>
+
+    <!-- ============================== -->
+    <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
+    <!-- ============================== -->
+    <nav class="navbar">
+      <button id="btnHome"     class="btn btn-primary">Inicio</button>
+      <button id="btnConsejos" class="btn btn-secondary">Consejos Nubank</button>
+      <button id="btnInfo"     class="btn btn-secondary">Información Banco</button>
+    </nav>
+
+    <!-- ==================================== -->
+    <!-- SECCIÓN “INICIO” (Banca operativa)   -->
+    <!-- ==================================== -->
+    <div id="bank-section">
+      <!-- Registro / Login -->
+      <div id="auth" class="card">
+        <h2 class="card-title">Registro / Login</h2>
+        <input id="name"     class="input" placeholder="Nombre" />
+        <input id="email"    class="input" placeholder="Email" type="email"/>
+        <input id="password" class="input" placeholder="Contraseña" type="password"/>
+        <div class="actions">
+          <button id="btnRegister" class="btn btn-primary">Registrarse</button>
+          <button id="btnLogin"    class="btn btn-secondary">Ingresar</button>
+        </div>
+      </div>
+
+      <!-- Panel central tras login -->
+      <div id="app" hidden>
+        <!-- Bienvenida y saldo -->
+        <div class="card">
+          <h2 class="card-title">Bienvenido, <span id="userName"></span></h2>
+          <p class="balance">Saldo: $<span id="balance">0.00</span></p>
+        </div>
+
+        <!-- Operación: Consignar -->
+        <div class="card">
+          <h3 class="card-subtitle">Consignar</h3>
+          <input id="depositAmount" class="input" type="number" placeholder="Monto"/>
+          <button id="btnDeposit"   class="btn btn-primary">Depositar</button>
+        </div>
+
+        <!-- Operación: Transferir -->
+        <div class="card">
+          <h3 class="card-subtitle">Transferir</h3>
+          <input id="transferEmail"  class="input" type="email" placeholder="Email destino"/>
+          <input id="transferAmount" class="input" type="number" placeholder="Monto"/>
+          <button id="btnTransfer"   class="btn btn-secondary">Enviar</button>
+        </div>
+
+        <!-- Operación: Solicitar préstamo -->
+        <div class="card">
+          <h3 class="card-subtitle">Solicitar Préstamo</h3>
+          <input id="loanAmount" class="input" type="number" placeholder="Monto"/>
+          <button id="btnLoan"    class="btn btn-primary">Solicitar</button>
+        </div>
+
+        <!-- Historial de Movimientos en tabla responsiva -->
+        <div class="card">
+          <h3 class="card-subtitle">Historial de Movimientos</h3>
+          <div class="table-responsive">
+            <table id="history-table" class="styled-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Tipo</th>
+                  <th>Monto</th>
+                  <th>Destino</th>
+                </tr>
+              </thead>
+              <tbody id="history-body">
+                <!-- Se rellena dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mis Préstamos en tabla responsiva -->
+        <div class="card">
+          <h3 class="card-subtitle">Mis Préstamos</h3>
+          <div class="table-responsive">
+            <table id="loans-table" class="styled-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Monto</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="loans-body">
+                <!-- Se rellena dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Botón Cerrar sesión -->
+        <button id="btnLogout" class="btn btn-danger">Cerrar sesión</button>
       </div>
     </div>
 
-    <!-- Sección de la aplicación (visible tras login) -->
-    <div id="app" hidden>
-      <!-- Tarjeta de bienvenida y balance -->
+    <!-- ==================================== -->
+    <!-- SECCIÓN “CONSEJOS NUBANK”            -->
+    <!-- ==================================== -->
+    <div id="consejos-section" hidden>
       <div class="card">
-        <h2 class="card-title">Bienvenido, <span id="userName"></span></h2>
-        <p class="balance">Saldo: $<span id="balance">0.00</span></p>
-      </div>
+        <h2 class="card-title">Videos inspiradores de Nubank</h2>
 
-      <!-- Tarjeta de consignación -->
-      <div class="card">
-        <h3 class="card-subtitle">Consignar</h3>
-        <input id="depositAmount" class="input" type="number" placeholder="Monto"/>
-        <button id="btnDeposit" class="btn btn-primary">Depositar</button>
-      </div>
+        <section class="video-card">
+          <h3>Siempre puedes cambiar de decisión: Toma la decisión Nu.</h3>
+          <iframe class="media"
+                  src="https://www.youtube.com/embed/PuGiLzILcZE?si=-vfzOJE_gEI0fDVx"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+        </section>
 
-      <!-- Tarjeta de transferencia -->
-      <div class="card">
-        <h3 class="card-subtitle">Transferir</h3>
-        <input id="transferEmail"  class="input" type="email" placeholder="Email destino"/>
-        <input id="transferAmount" class="input" type="number" placeholder="Monto"/>
-        <button id="btnTransfer" class="btn btn-secondary">Enviar</button>
-      </div>
+        <section class="video-card">
+          <h3>¿Qué sucede con mi depósito?</h3>
+          <iframe class="media"
+                  src="https://www.youtube.com/embed/9pv9IbzcgYk?si=yW1s1CQZIU78fmd8"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+        </section>
 
-      <!-- Tarjeta de solicitud de préstamo -->
-      <div class="card">
-        <h3 class="card-subtitle">Solicitar Préstamo</h3>
-        <input id="loanAmount" class="input" type="number" placeholder="Monto"/>
-        <button id="btnLoan" class="btn btn-primary">Solicitar</button>
+        <section class="video-card">
+          <h3>¿Cómo checar un reembolso desde la app Nu?</h3>
+          <iframe class="media"
+                  src="https://www.youtube.com/embed/Km8Fqcd2wx8?si=6xUSus0D6VCkakKs"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+        </section>
       </div>
-
-      <!-- Tarjeta de historial de movimientos -->
-      <div class="card">
-        <h3 class="card-subtitle">Historial de Movimientos</h3>
-        <ul id="history"></ul>
-      </div>
-
-      <!-- Tarjeta de lista de préstamos solicitados -->
-      <div class="card">
-        <h3 class="card-subtitle">Mis Préstamos</h3>
-        <ul id="loans"></ul>
-      </div>
-
-      <!-- Botón de cierre de sesión -->
-      <button id="btnLogout" class="btn btn-danger">Cerrar sesión</button>
     </div>
+
+    <!-- ==================================== -->
+    <!-- SECCIÓN “INFORMACIÓN BANCO”          -->
+    <!-- ==================================== -->
+    <div id="info-section" hidden>
+      <div class="card">
+        <h2 class="card-title">Información Importante del Banco</h2>
+
+        <!-- Tabla de Tipos de Cuenta y Tarifas -->
+        <h3 class="card-subtitle">Tipos de Cuenta y Tarifas</h3>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Tipo de Cuenta</th>
+              <th>Saldo Mínimo</th>
+              <th>Tarifa Mensual</th>
+              <th>Tasa de Interés</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cuenta Ahorros</td>
+              <td>$0</td>
+              <td>$0</td>
+              <td>0.5% anual</td>
+            </tr>
+            <tr>
+              <td>Cuenta Corriente</td>
+              <td>$100.000</td>
+              <td>$5.000</td>
+              <td>0% anual</td>
+            </tr>
+            <tr>
+              <td>Cuenta Nómina</td>
+              <td>$0</td>
+              <td>$0</td>
+              <td>0.2% anual</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Desplegable de Productos -->
+        <h3 class="card-subtitle">Productos del Banco</h3>
+        <select id="productSelect" class="input">
+          <option value="">-- Selecciona un producto --</option>
+          <option value="tarjeta-clasica">Tarjeta Clásica</option>
+          <option value="tarjeta-premium">Tarjeta Premium</option>
+          <option value="prestamo-personal">Préstamo Personal</option>
+          <option value="prestamo-hipotecario">Préstamo Hipotecario</option>
+          <option value="prestamo-vehicular">Préstamo Vehicular</option>
+        </select>
+
+        <!-- Detalles de productos -->
+        <div id="tarjeta-clasica" class="product-detail" hidden>
+          <h4>Tarjeta Clásica</h4>
+          <ul>
+            <li><strong>Tipo:</strong> Crédito estándar</li>
+            <li><strong>Límite:</strong> Hasta $2.000.000</li>
+            <li><strong>Tasa:</strong> 1.5% mensual</li>
+            <li><strong>Ventajas:</strong> Sin cuota de manejo el primer año, descuentos en comercios aliados.</li>
+          </ul>
+        </div>
+        <div id="tarjeta-premium" class="product-detail" hidden>
+          <h4>Tarjeta Premium</h4>
+          <ul>
+            <li><strong>Tipo:</strong> Crédito ampliado</li>
+            <li><strong>Límite:</strong> Hasta $10.000.000</li>
+            <li><strong>Tasa:</strong> 1.2% mensual</li>
+            <li><strong>Ventajas:</strong> Sala VIP en aeropuertos, seguro de viajes, puntos acumulables.</li>
+          </ul>
+        </div>
+        <div id="prestamo-personal" class="product-detail" hidden>
+          <h4>Préstamo Personal</h4>
+          <ul>
+            <li><strong>Monto:</strong> $500.000 – $20.000.000</li>
+            <li><strong>Plazo:</strong> Hasta 48 meses</li>
+            <li><strong>Tasa:</strong> 1.7% mensual</li>
+            <li><strong>Ventajas:</strong> Pago flexible, desembolso rápido en 24 h.</li>
+          </ul>
+        </div>
+        <div id="prestamo-hipotecario" class="product-detail" hidden>
+          <h4>Préstamo Hipotecario</h4>
+          <ul>
+            <li><strong>Monto:</strong> Hasta $500.000.000</li>
+            <li><strong>Plazo:</strong> Hasta 20 años</li>
+            <li><strong>Tasa:</strong> 0.8% anual</li>
+            <li><strong>Ventajas:</strong> Cuotas bajas, posibilidad de periodo de gracia.</li>
+          </ul>
+        </div>
+        <div id="prestamo-vehicular" class="product-detail" hidden>
+          <h4>Préstamo Vehicular</h4>
+          <ul>
+            <li><strong>Monto:</strong> $5.000.000 – $100.000.000</li>
+            <li><strong>Plazo:</strong> Hasta 60 meses</li>
+            <li><strong>Tasa:</strong> 1.3% mensual</li>
+            <li><strong>Ventajas:</strong> Seguro de auto incluido, tasa preferencial.</li>
+          </ul>
+        </div>
+
+        <!-- Preguntas Frecuentes completas -->
+        <h3 class="card-subtitle">Preguntas Frecuentes</h3>
+        <div class="faq">
+          <div class="faq-item">
+            <strong>¿Cómo abro una cuenta?</strong>
+            <p>Solo necesitas tu cédula y un correo electrónico válido. Todo el proceso es 100% en línea.</p>
+          </div>
+          <div class="faq-item">
+            <strong>¿Cuánto tarda en aprobarse un préstamo?</strong>
+            <p>Si cumples los requisitos, la aprobación es inmediata y el dinero se desembolsa en 24 h.</p>
+          </div>
+          <div class="faq-item">
+            <strong>¿Puedo pagar mi tarjeta antes de la fecha de corte?</strong>
+            <p>Sí, no hay penalización por pagos anticipados y así reduces intereses.</p>
+          </div>
+          <div class="faq-item">
+            <strong>¿Hay comisiones ocultas?</strong>
+            <p>No. Todas las tarifas y comisiones están listadas en la tabla de Tarifas y Condiciones.</p>
+          </div>
+          <div class="faq-item">
+            <strong>¿Cómo contacto soporte?</strong>
+            <p>Puedes escribir al chat en la app o enviar un correo a soporte@bancolocal.com.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Enlace al script JavaScript -->
+  <!-- Script JS completo -->
   <script src="script.js"></script>
 </body>
 </html>
